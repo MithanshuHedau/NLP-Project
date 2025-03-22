@@ -1,3 +1,5 @@
+Positive Negative, Neutral Sentiment 
+
 ✅ Positive Sentiments:
 
 "Absolutely loved the user interface—clean and responsive!"
