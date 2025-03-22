@@ -3,15 +3,18 @@
 
 # In[1]:
 
+
 # get_ipython().system('pip install pandas numpy scikit-learn nltk matplotlib seaborn')
 
 
 # In[2]:
 
+
 # get_ipython().system('pip install tensorflow keras torch transformers')
 
 
 # In[3]:
+
 
 import pandas as pd
 
@@ -24,6 +27,7 @@ df.tail()
 
 
 # In[4]:
+
 
 import nltk
 from nltk.corpus import stopwords
@@ -39,6 +43,7 @@ nltk.download('wordnet')
 
 # In[5]:
 
+
 # Rename columns to simpler names
 df.columns = ['id', 'place', 'feedback', 'text']
 
@@ -51,17 +56,20 @@ df.head()
 
 # In[6]:
 
+
 import nltk
 nltk.download('punkt')
 
 
 # In[7]:
 
+
 import nltk
 print(nltk.data.path)
 
 
 # In[8]:
+
 
 import pandas as pd
 import nltk
@@ -98,12 +106,16 @@ df.head()
 
 # In[9]:
 
+
 df.tail()
 
 
 # #  Convert Text into Vectors (TF-IDF or CountVectorizer)
+# 
+# 
 
 # In[10]:
+
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -118,6 +130,7 @@ print(X.shape, y.shape)  # Verify shapes
 
 
 # In[11]:
+
 
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -139,6 +152,7 @@ print(classification_report(y_test, y_pred))
 
 
 # In[12]:
+
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -181,6 +195,7 @@ plt.show()
 
 # In[13]:
 
+
 import pickle
 
 # Save the model and vectorizer
@@ -203,17 +218,20 @@ print("Predicted Sentiment:", predict_sentiment(user_input))
 
 # In[14]:
 
+
 user_input = "This product broke after just one day. Very disappointed."
 print("Predicted Sentiment:", predict_sentiment(user_input))
 
 
 # In[15]:
 
+
 user_input = "I didn’t expect much, but this turned out to be one of the most exhilarating experiences of my life."
 print("Predicted Sentiment:", predict_sentiment(user_input))
 
 
-# In[16]:
+# In[18]:
+
 
 def predict_sentiment():
     user_input = input("Enter a sentence: ")  
@@ -224,3 +242,10 @@ def predict_sentiment():
 
 # Run the function
 predict_sentiment()
+
+
+# In[ ]:
+
+
+
+

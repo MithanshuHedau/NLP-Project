@@ -2,96 +2,38 @@
 <html lang="en">
 
 <head>
-    <title>Sentiment Analysis</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #000000, #ff7300);
-            color: white;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 600px;
-            width: 90%;
-            transition: transform 0.3s ease;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        label {
-            font-size: 1.2rem;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            margin: 20px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        button {
-            background: #ff7300;
-            color: white;
-            padding: 12px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: #ff5a00;
-        }
-
-        .result {
-            margin-top: 2rem;
-            padding: 20px;
-            border-radius: 15px;
-            font-size: 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-        }
-    </style>
+    <title>Sentiment Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <div class="container">
-        <h1>Sentiment Analysis</h1>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen flex items-center justify-center">
 
-        <form action="/predict" method="POST">
-            <label for="text">Enter your text:</label>
-            <input type="text" id="text" name="text" placeholder="Type your message..." required>
-            <button type="submit">Analyze Sentiment</button>
+    <div class="bg-gray-100 p-8 rounded-2xl shadow-2xl max-w-lg w-full">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-8 text-center">🔍 Sentiment Analyzer</h1>
+
+        <form action="/predict" method="post" class="space-y-6">
+            <textarea name="text" placeholder="Enter your text here..." required
+                class="w-full h-32 p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-indigo-500"></textarea>
+
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-transform transform hover:scale-105">Analyze Sentiment</button>
         </form>
 
         {% if input_text %}
-        <div class="result">
-            <p><strong>Input:</strong> {{ input_text }}</p>
-            <p><strong>Sentiment:</strong> {{ result }}</p>
+        <div class="mt-8 p-6 bg-white rounded-lg shadow-lg">
+            <p class="text-lg text-gray-700"><strong>Input:</strong> {{ input_text }}</p>
+            <p class="text-lg font-bold mt-4">🧠 <strong>Sentiment:</strong> {{ result }}</p>
         </div>
         {% endif %}
+
+        {% if error %}
+        <div class="mt-8 p-6 bg-red-100 text-red-700 rounded-lg shadow-lg">
+            <p><strong>Error:</strong> {{ error }}</p>
+        </div>
+        {% endif %}
+
     </div>
+
 </body>
 
 </html>
