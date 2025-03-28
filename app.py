@@ -1,6 +1,5 @@
 from flask import Flask, request, jsonify, render_template
 import pickle
-import os
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -27,29 +26,19 @@ except Exception as e:
     print(f"❌ Error loading model/vectorizer: {e}")
     exit(1)
 
-# Text Preprocessing (Ensure consistency with train.py)
+# Text Preprocessing (Ensure consistency with trainedFile.ipynb)
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
 def preprocess_text(text):
-    # Convert to lowercase
+    if not isinstance(text, str):
+        return ""
     text = text.lower()
-
-    # Tokenize and remove non-alphabetic characters
     tokens = word_tokenize(text)
     tokens = [word for word in tokens if word.isalpha()]
-
-    # Remove stopwords and apply lemmatization
-    tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
-
-    return ' '.join(tokens)
-
-# Prediction Mapping (3 Classes)
-sentiment_map = {
-    0: 'Negative',
-    1: 'Neutral',
-    2: 'Positive'
-}
+    tokens = [word for word in tokens if word not in stop_words]
+    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+    return " ".join(tokens)
 
 # Home Route (Renders Input Form)
 @app.route('/')
@@ -80,22 +69,12 @@ def predict():
         prediction = model.predict(vectorized_text)[0]
         print(f"🎯 Model Output: {prediction}")
 
-        # Map prediction to sentiment
-        if prediction == 0:
-            sentiment = 'Negative'
-        elif prediction == 1:
-            sentiment = 'Neutral'
-        elif prediction == 2:
-            sentiment = 'Positive'
-        else:
-            sentiment = f"{prediction}"
-
-        return render_template('index.html', input_text=text, result=sentiment)
+        # Return prediction result
+        return render_template('index.html', input_text=text, result=prediction)
 
     except Exception as e:
         print(f"❌ Error during prediction: {e}")
         return jsonify({'error': str(e)})
-
 
 # Run Flask App
 if __name__ == '__main__':
